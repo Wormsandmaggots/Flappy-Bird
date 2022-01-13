@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class GetPoint : MonoBehaviour
 {
-
     void OnTriggerEnter2D(Collider2D other) {
-        GameManager.instance.score++;
+        
+        if(other.CompareTag("Bird"))
+            GameManager.instance.score++;
     }
 }

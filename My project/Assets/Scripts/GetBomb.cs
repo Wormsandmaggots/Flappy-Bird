@@ -16,12 +16,12 @@ public class GetBomb : MonoBehaviour
     void Update()
     {
         SetAmount();
+        
         IncreaseAmount();
     }
 
     private void IncreaseAmount()
     {
-        
         if(GameManager.instance.score % 10 == 0 && GameManager.instance.bombsAmount < 3 && GameManager.instance.score != 0 && added == false)
         {
             GameManager.instance.bombsAmount++;

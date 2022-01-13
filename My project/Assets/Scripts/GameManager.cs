@@ -6,6 +6,7 @@ using System;
 
 public class GameManager : MonoBehaviour, IComparer<int>
 {
+    public bool bombUsed = false;
     public int highestAmount = 5;
     public int score = 0;
     public int bombsAmount = 0;
@@ -18,19 +19,28 @@ public class GameManager : MonoBehaviour, IComparer<int>
     public GameObject newHighScoreScreen;
 
     void Awake() {
+
         if(instance != null)
         {
             Destroy(gameObject);
             return;
         }
 
-            startScreen.SetActive(true);
-            gameOverScreen.SetActive(false);
-        newHighScoreScreen.SetActive(false);
-
         instance = this;
 
+        startScreen.SetActive(true);
+        gameOverScreen.SetActive(false);
+        newHighScoreScreen.SetActive(false);
+
         SetTimeScale(0);
+    }
+
+    void Update() {
+
+        if(Input.GetKeyDown(KeyCode.B))
+            SetTimeScale(0);
+            
+        UseBomb();
     }
 
     public void GameOver()
@@ -54,21 +64,29 @@ public class GameManager : MonoBehaviour, IComparer<int>
             return;
         }
 
-        int[] temp = new int[highestScores.Count];
-        highestScores.CopyTo(temp);
+        int amount = highestScores.Count;
 
         highestScores.Add(score);
+
+        int temp = highestScores[highestScores.Count - 1];
+
         highestScores.Sort(Compare);
         if(highestScores.Count == highestAmount + 1)
         {
             highestScores.RemoveAt(highestAmount);
         }
-
-        Array.Sort(temp, Compare);
-        if(Change(temp, highestScores))
+        
+        if(temp != highestScores[highestScores.Count - 1] || amount < highestScores.Count)
         {
-            Debug.Log("NEW");
             newHighScoreScreen.SetActive(true);
+        }
+    }
+
+    private void UseBomb()
+    {
+        if(((Input.touchCount > 0 && Input.GetTouch(0).tapCount == 2) || Input.GetKeyDown(KeyCode.A)) && bombsAmount > 0)
+        {
+            bombUsed = true;
         }
     }
 
@@ -80,16 +98,5 @@ public class GameManager : MonoBehaviour, IComparer<int>
     public void SetTimeScale(int scale)
     {
         Time.timeScale = scale;
-    }
-
-    private bool Change(int[] tab, List<int> list)
-    {
-        for (int i = 0; i < tab.Length; i++)
-        {
-            if(list[i] != tab[i])
-                return false;
-        }
-
-        return true;
     }
 }

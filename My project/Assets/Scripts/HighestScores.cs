@@ -14,7 +14,15 @@ public class HighestScores : MonoBehaviour
 
     void Update() 
     {
-        
+        UpdateHighScore();
+    }
+
+    void OnDisable() {
+        updated = false;
+    }
+
+    private void UpdateHighScore()
+    {
         if(GameManager.instance != null && !updated)
         {
             for (int i = 0; i < GameManager.instance.highestScores.Count; i++)
@@ -31,10 +39,6 @@ public class HighestScores : MonoBehaviour
 
             updated = true;
         }
-    }
-
-    void OnDisable() {
-        updated = false;
     }
 
 }

@@ -8,7 +8,7 @@ public class DestroyIfDuplicate : MonoBehaviour
     private static GameObject thisObject;
 
     void Awake() {
-
+        
         if(thisObject != null)
         {
             Destroy(gameObject);
