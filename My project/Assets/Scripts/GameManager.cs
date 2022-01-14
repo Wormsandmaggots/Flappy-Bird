@@ -18,8 +18,8 @@ public class GameManager : MonoBehaviour, IComparer<int>
     public GameObject gameOverScreen;
     public GameObject newHighScoreScreen;
 
-    void Awake() {
-
+    void Awake() 
+    {
         if(instance != null)
         {
             Destroy(gameObject);
@@ -32,14 +32,13 @@ public class GameManager : MonoBehaviour, IComparer<int>
         gameOverScreen.SetActive(false);
         newHighScoreScreen.SetActive(false);
 
+        Load();
+
         SetTimeScale(0);
     }
 
-    void Update() {
-
-        if(Input.GetKeyDown(KeyCode.B))
-            SetTimeScale(0);
-            
+    void Update() 
+    {
         UseBomb();
     }
 
@@ -84,9 +83,25 @@ public class GameManager : MonoBehaviour, IComparer<int>
 
     private void UseBomb()
     {
-        if(((Input.touchCount > 0 && Input.GetTouch(0).tapCount == 2) || Input.GetKeyDown(KeyCode.A)) && bombsAmount > 0)
+        if(((Input.touchCount > 0 && Input.GetTouch(0).tapCount == 2) || Input.GetKeyDown(KeyCode.A)) && bombsAmount > 0 && gameOverScreen.activeSelf == false)
         {
             bombUsed = true;
+        }
+    }
+
+    public void Save()
+    {
+        for (int i = 0; i < highestScores.Count; i++)
+        {
+            PlayerPrefs.SetInt("highestScores[" + i + "]", highestScores[i]);
+        }
+    }
+
+    private void Load()
+    {
+        for (int i = 0; i < highestAmount; i++)
+        {
+            highestScores.Add(PlayerPrefs.GetInt("highestScores[" + i + "]"));
         }
     }
 

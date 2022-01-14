@@ -17,13 +17,14 @@ public class Bird : MonoBehaviour
         OnTapJump();
     }
 
-    void OnCollisionEnter2D(Collision2D other) {
+    void OnCollisionEnter2D(Collision2D other) 
+    {
         Dead();
     }
 
     private void OnTapJump()
     {
-        if((Input.touchCount > 0 && (Input.GetTouch(0).tapCount == 1 && Input.GetTouch(0).phase == TouchPhase.Began)) || Input.GetKeyDown(KeyCode.Space))
+        if((Input.touchCount > 0 && (Input.GetTouch(0).tapCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)) || Input.GetKeyDown(KeyCode.Space))
         {
             rb.velocity = Vector2.up * jumpPower;
         }

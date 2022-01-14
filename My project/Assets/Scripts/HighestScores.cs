@@ -38,6 +38,8 @@ public class HighestScores : MonoBehaviour
             }
 
             updated = true;
+
+            GameManager.instance.Save();
         }
     }
 

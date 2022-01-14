@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class PipeSpawnerAndDestroyer : MonoBehaviour
 {
-    public GameObject pipePrefab;
     public float spawnDelay;
     private float lastSpawn = 0;
+    public float range;
+    
+    public GameObject pipePrefab;
     public List<Pipe> pipes = new List<Pipe>();
 
     void Update()
@@ -19,7 +21,8 @@ public class PipeSpawnerAndDestroyer : MonoBehaviour
     {
         if(Time.time - lastSpawn > spawnDelay)
         {
-            Instantiate(pipePrefab, gameObject.transform);
+            GameObject pipe = Instantiate(pipePrefab, gameObject.transform);
+            pipe.transform.position += new Vector3(0, Random.Range(-range, range), 0);
             lastSpawn = Time.time;
         }
     }

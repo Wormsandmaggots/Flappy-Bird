@@ -7,7 +7,8 @@ public class SetScore : MonoBehaviour
 {
     private Text scoreAmount;
     
-    void Start() {
+    void Start() 
+    {
         scoreAmount = GetComponent<Text>();
     }
 

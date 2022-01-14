@@ -10,20 +10,24 @@ public class Pipe : MonoBehaviour
     private PipeSpawnerAndDestroyer spawner;
     private float spawnTime;
 
-    void Start() {
+    void Start() 
+    {
         spawner = GetComponentInParent<PipeSpawnerAndDestroyer>();
         spawner.pipes.Add(this);
         spawnTime = Time.time;
     }
 
-    void Update()
+    void Update() 
     {
-        MovePipe();
-
         if(spawnTime + destroyDelay < Time.time)
         {
             RemovePipe();
         }
+    }
+
+    void FixedUpdate()
+    {
+        MovePipe();
     }
 
     private void MovePipe()
