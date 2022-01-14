@@ -6,9 +6,10 @@ public class Pipe : MonoBehaviour
 {
     public float speed;
     public float destroyDelay;
-    public bool isVisible;
-    private PipeSpawnerAndDestroyer spawner;
     private float spawnTime;
+    public bool isVisible;
+
+    private PipeSpawnerAndDestroyer spawner;
 
     void Start() 
     {
@@ -40,6 +41,4 @@ public class Pipe : MonoBehaviour
         spawner.pipes.Remove(this);
         Destroy(gameObject);
     }
-
-
 }

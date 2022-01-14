@@ -12,11 +12,10 @@ public class DestroyIfDuplicate : MonoBehaviour
         if(thisObject != null)
         {
             Destroy(gameObject);
+            return;
         }
-        else
-        {
-            thisObject = gameObject;
-        }
+        
+        thisObject = gameObject;
     }
     
 }

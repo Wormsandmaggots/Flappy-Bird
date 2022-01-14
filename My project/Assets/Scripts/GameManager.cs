@@ -67,7 +67,15 @@ public class GameManager : MonoBehaviour, IComparer<int>
 
         highestScores.Add(score);
 
-        int temp = highestScores[highestScores.Count - 1];
+        int temp;
+        if(amount == 6)
+        {
+            temp = highestScores[amount - 2];
+        }
+        else
+        {
+            temp = highestScores[amount - 1];
+        }
 
         highestScores.Sort(Compare);
         if(highestScores.Count == highestAmount + 1)
@@ -86,6 +94,7 @@ public class GameManager : MonoBehaviour, IComparer<int>
         if(((Input.touchCount > 0 && Input.GetTouch(0).tapCount == 2) || Input.GetKeyDown(KeyCode.A)) && bombsAmount > 0 && gameOverScreen.activeSelf == false)
         {
             bombUsed = true;
+            AudioManager.instance.Play("explosion");
         }
     }
 
